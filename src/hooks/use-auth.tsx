@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
@@ -7,7 +8,7 @@ import { useTheme } from 'next-themes';
 import { useToast } from './use-toast';
 import { format } from 'date-fns';
 
-const API_URL = 'http://localhost:3001/api'; 
+const API_URL = process.env.NEXT_PUBLIC_API_URL; 
 
 interface User {
   name: string;
