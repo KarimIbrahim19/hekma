@@ -22,14 +22,15 @@ export default function LangLayout({
   const router = useRouter();
   const pathname = usePathname();
   const [lang, setLang] = useState(params.lang);
-
   const [dictionary, setDictionary] = useState<any>(null);
 
   useEffect(() => {
-    setLang(params.lang);
-    getDictionary(params.lang).then(setDictionary);
-  }, [params.lang]);
-
+    const currentLang = pathname.split('/')[1] as Locale;
+    if (currentLang) {
+      setLang(currentLang);
+      getDictionary(currentLang).then(setDictionary);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     if (isLoading) return;
