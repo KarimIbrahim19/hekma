@@ -30,21 +30,34 @@ export default function LangLayout({
   useEffect(() => {
     if (isLoading) return;
 
-    const isAuthRoute = authRoutes.some(route => pathname.endsWith(route));
+    const currentPath = pathname.substring(pathname.indexOf('/', 1));
+    const isAuthRoute = authRoutes.some(route => currentPath === route);
+
+    if (user && isAuthRoute) {
+      router.push(`/${lang}/pharmacy`);
+    }
 
     if (!user && !isAuthRoute) {
       router.push(`/${lang}/login`);
     }
   }, [user, isLoading, pathname, router, lang]);
-
-  const isAuthRoute = authRoutes.some(route => pathname.endsWith(route));
   
+  const currentPath = pathname.substring(pathname.indexOf('/', 1));
+  const isAuthRoute = authRoutes.some(route => currentPath === route);
+
   const content = () => {
     if (isAuthRoute) {
+      if (isLoading || (user && isAuthRoute)) {
+        return (
+          <div className="flex h-screen items-center justify-center">
+            Loading...
+          </div>
+        );
+      }
       return children;
     }
 
-    if (isLoading || (!user && !isAuthRoute) || !dictionary) {
+    if (isLoading || !user || !dictionary) {
       return (
         <div className="flex h-screen items-center justify-center">
             Loading...
