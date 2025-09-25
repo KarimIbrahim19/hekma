@@ -7,13 +7,16 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { CreditCard, Landmark, MapPin } from 'lucide-react';
+import { CreditCard, FileText, Landmark, MapPin } from 'lucide-react';
 import { getDictionary } from '@/lib/dictionary';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 interface PharmacyData {
   id: number;
@@ -77,6 +80,9 @@ export default function PharmacyPage({
                 <Skeleton className="h-10 w-full" />
                 <Skeleton className="h-10 w-full" />
             </CardContent>
+             <CardFooter>
+                <Skeleton className="h-10 w-32" />
+            </CardFooter>
         </Card>
       </div>
     );
@@ -135,6 +141,14 @@ export default function PharmacyPage({
             </div>
           </div>
         </CardContent>
+         <CardFooter>
+            <Link href={`/${lang}/pharmacy/statement`}>
+              <Button className="bg-accent text-accent-foreground hover:bg-accent/90">
+                <FileText className="me-2 h-4 w-4" />
+                {dictionary.pharmacy.viewStatement}
+              </Button>
+            </Link>
+        </CardFooter>
       </Card>
     </div>
   );
