@@ -7,8 +7,6 @@ import { useAuth } from '@/hooks/use-auth';
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import {
   Table,
@@ -26,6 +24,9 @@ import Link from 'next/link';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { Alert, AlertCircle } from 'lucide-react';
+import { AlertTitle, AlertDescription } from '@/components/ui/alert';
+
 
 interface TransactionDetail {
     productId: number;
@@ -121,7 +122,15 @@ export default function StatementPage({
   }
 
   if (error) {
-    return <div className="text-destructive text-center">{error}</div>;
+    return (
+        <div className="container mx-auto">
+            <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+            </Alert>
+        </div>
+    );
   }
   
   return (

@@ -69,6 +69,11 @@ export default function SelectPharmacyPage({
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to select pharmacy.');
       console.error(err);
+      toast({
+        variant: 'destructive',
+        title: 'Selection Failed',
+        description: err.response?.data?.message || 'Could not select pharmacy.',
+      });
     } finally {
       setIsSelecting(null);
     }
