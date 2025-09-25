@@ -2,19 +2,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { type Locale } from '@/i18n-config';
 import { useAuth } from '@/hooks/use-auth';
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Loader2 } from 'lucide-react';
 import { getDictionary } from '@/lib/dictionary';
+import { useToast } from '@/hooks/use-toast';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface AvailablePharmacy {
   id: number;
@@ -28,8 +27,11 @@ export default function SelectPharmacyPage({
   params: { lang: Locale };
 }) {
   const { api } = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
   const [pharmacies, setPharmacies] = useState<AvailablePharmacy[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSelecting, setIsSelecting] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [dictionary, setDictionary] = useState<any>(null);
 
@@ -54,9 +56,27 @@ export default function SelectPharmacyPage({
     fetchAvailablePharmacies();
   }, [api]);
 
+  const handleSelectPharmacy = async (pharmacyId: number) => {
+    setIsSelecting(pharmacyId);
+    try {
+      await api.post('/pharmacies/select', { pharmacyId });
+      toast({
+        title: "Pharmacy Selected",
+        description: "You will now be redirected to your pharmacy dashboard.",
+      });
+      // We push to the base pharmacy page, which will then re-fetch the current pharmacy
+      router.push(`/${lang}/pharmacy`);
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Failed to select pharmacy.');
+      console.error(err);
+    } finally {
+      setIsSelecting(null);
+    }
+  };
+
   if (isLoading || !dictionary) {
     return (
-      <div className="container mx-auto">
+      <div className="container mx-auto max-w-2xl">
         <div className="mb-8">
           <Skeleton className="h-10 w-3/4" />
           <Skeleton className="h-4 w-1/2 mt-2" />
@@ -71,7 +91,14 @@ export default function SelectPharmacyPage({
   }
   
   if (error) {
-    return <div className="text-destructive text-center">{error}</div>;
+    return (
+      <div className="container mx-auto max-w-2xl">
+          <Alert variant="destructive">
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+      </div>
+    );
   }
 
   return (
@@ -83,18 +110,27 @@ export default function SelectPharmacyPage({
 
       <div className="space-y-4">
         {pharmacies.map((pharmacy) => (
-          <Link href={`/${lang}/pharmacy/${pharmacy.id}`} key={pharmacy.id} passHref>
-             <Card className="hover:bg-muted/50 transition-colors cursor-pointer">
-               <CardContent className="p-4 flex items-center justify-between">
-                <div>
-                    <h3 className="font-semibold text-lg">{pharmacy.name}</h3>
-                    <p className="text-sm text-muted-foreground">{pharmacy.address || 'No address provided'}</p>
-                </div>
-                <ChevronRight className="h-5 w-5 text-muted-foreground" />
-               </CardContent>
-             </Card>
-          </Link>
+         <Card 
+            key={pharmacy.id}
+            className="hover:bg-muted/50 transition-colors cursor-pointer"
+            onClick={() => isSelecting !== pharmacy.id && handleSelectPharmacy(pharmacy.id)}
+         >
+           <CardContent className="p-4 flex items-center justify-between">
+            <div>
+                <h3 className="font-semibold text-lg">{pharmacy.name}</h3>
+                <p className="text-sm text-muted-foreground">{pharmacy.address || 'No address provided'}</p>
+            </div>
+            {isSelecting === pharmacy.id ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+            )}
+           </CardContent>
+         </Card>
         ))}
+        {pharmacies.length === 0 && !isLoading && (
+          <p className='text-center text-muted-foreground'>No available pharmacies to select.</p>
+        )}
       </div>
     </div>
   );
