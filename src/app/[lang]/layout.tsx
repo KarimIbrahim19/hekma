@@ -21,7 +21,7 @@ export default function LangLayout({
   const { user, isLoading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  const [lang, setLang] = useState(params.lang);
+  const [lang, setLang] = useState<Locale>(pathname.split('/')[1] as Locale || 'en');
   const [dictionary, setDictionary] = useState<any>(null);
 
   useEffect(() => {
