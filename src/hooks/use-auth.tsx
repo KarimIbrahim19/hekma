@@ -4,6 +4,8 @@ import React, { createContext, useContext, useState, useEffect, ReactNode, Dispa
 import axios from 'axios';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
+import { useToast } from './use-toast';
+import { format } from 'date-fns';
 
 const API_URL = 'http://localhost:3001/api'; 
 
@@ -14,6 +16,7 @@ interface User {
   avatarUrl?: string;
   theme?: 'light' | 'dark';
   lang?: 'en' | 'ar';
+  lastLogin?: string;
 }
 
 interface AuthContextType {
@@ -36,6 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
   const { setTheme } = useTheme();
+  const { toast } = useToast();
   
   const api = axios.create({
     baseURL: API_URL,
@@ -130,6 +134,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setTheme(userData.theme);
       }
       
+      if (userData.lastLogin) {
+        toast({
+            title: `Welcome back, ${userData.name}!`,
+            description: `Last login: ${format(new Date(userData.lastLogin), 'PPP p')}`,
+        });
+      }
+
       const targetLang = userData.lang || 'en';
       router.push(`/${targetLang}/pharmacy`);
 
