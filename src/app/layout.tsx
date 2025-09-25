@@ -1,7 +1,9 @@
+
 import './globals.css';
 import type { Metadata } from 'next';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/hooks/use-auth';
+import type { Locale } from '@/i18n-config';
 
 export const metadata: Metadata = {
   title: 'PharmaLink',
@@ -19,11 +21,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { lang: Locale };
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={params.lang} dir={params.lang === 'ar' ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

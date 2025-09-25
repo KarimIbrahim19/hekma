@@ -13,7 +13,7 @@ const authRoutes = ['/login', '/signup'];
 
 export default function LangLayout({
   children,
-  params,
+  params: { lang },
 }: {
   children: React.ReactNode;
   params: { lang: Locale };
@@ -21,16 +21,11 @@ export default function LangLayout({
   const { user, isLoading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  const [lang, setLang] = useState<Locale>(pathname.split('/')[1] as Locale || 'en');
   const [dictionary, setDictionary] = useState<any>(null);
 
   useEffect(() => {
-    const currentLang = pathname.split('/')[1] as Locale;
-    if (currentLang) {
-      setLang(currentLang);
-      getDictionary(currentLang).then(setDictionary);
-    }
-  }, [pathname]);
+    getDictionary(lang).then(setDictionary);
+  }, [lang]);
 
   useEffect(() => {
     if (isLoading) return;
