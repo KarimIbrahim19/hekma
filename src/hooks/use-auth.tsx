@@ -2,7 +2,8 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useTheme } from 'next-themes';
 
 const API_URL = 'http://localhost:3000/api'; // Replace with your actual NestJS API URL
 
@@ -11,8 +12,8 @@ interface User {
   email: string;
   phone?: string;
   avatarUrl?: string;
-  theme?: string;
-  lang?: string;
+  theme?: 'light' | 'dark';
+  lang?: 'en' | 'ar';
 }
 
 interface AuthContextType {
@@ -31,6 +32,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
+  const { setTheme } = useTheme();
 
   useEffect(() => {
     const initializeAuth = () => {
@@ -38,13 +41,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const storedUser = localStorage.getItem('user');
 
       if (storedToken && storedUser) {
+        const userData: User = JSON.parse(storedUser);
         setToken(storedToken);
-        setUser(JSON.parse(storedUser));
+        setUser(userData);
+        if (userData.theme) {
+          setTheme(userData.theme);
+        }
       }
       setIsLoading(false);
     };
     initializeAuth();
-  }, []);
+  }, [setTheme]);
 
   const login = async (email: string, password: string, rememberMe = false) => {
     try {
@@ -61,6 +68,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       
       localStorage.setItem('token', apiToken);
       localStorage.setItem('user', JSON.stringify(userData));
+
+      if (userData.theme) {
+        setTheme(userData.theme);
+      }
+      
+      const targetLang = userData.lang || 'en';
+      router.push(`/${targetLang}`);
+
 
     } catch (error: any) {
       console.error('Login failed:', error);
@@ -96,7 +111,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    const lang = window.location.pathname.split('/')[1] || 'en';
+    const lang = pathname.split('/')[1] || 'en';
     router.push(`/${lang}/login`);
   };
 

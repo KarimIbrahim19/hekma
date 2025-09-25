@@ -18,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Separator } from '../ui/separator';
 import { Button } from '../ui/button';
 import { useAuth } from '@/hooks/use-auth';
+import { ThemeSwitcher } from './theme-switcher';
 
 type AppSidebarProps = {
   lang: Locale;
@@ -83,10 +84,13 @@ export default function AppSidebar({ lang, dictionary }: AppSidebarProps) {
       </SidebarContent>
       <Separator />
       <SidebarFooter>
-        <Button variant="ghost" className="w-full justify-start" onClick={logout}>
-          <LogOut className="mr-2 h-4 w-4" />
-          <span className="group-data-[collapsible=icon]:hidden">{dictionary.nav.logout}</span>
-        </Button>
+        <div className='flex flex-col gap-2'>
+            <ThemeSwitcher dictionary={dictionary}/>
+            <Button variant="ghost" className="w-full justify-start" onClick={logout}>
+            <LogOut className="mr-2 h-4 w-4" />
+            <span className="group-data-[collapsible=icon]:hidden">{dictionary.nav.logout}</span>
+            </Button>
+        </div>
       </SidebarFooter>
     </Sidebar>
   );

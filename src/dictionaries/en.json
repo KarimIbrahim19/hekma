@@ -7,7 +7,9 @@
     "invoices": "Invoices",
     "newInvoice": "New Invoice",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode"
   },
   "auth": {
     "login": "Login",
