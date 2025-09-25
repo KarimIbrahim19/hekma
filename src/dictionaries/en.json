@@ -48,12 +48,20 @@
   "statement": {
     "title": "Pharmacy Statement",
     "description": "Transaction history, payments, and outstanding balances.",
+    "backButton": "Back to Pharmacy",
     "date": "Date",
-    "transactionType": "Transaction Type",
-    "invoiceNo": "Invoice #",
+    "transactionType": "Type",
+    "referenceNo": "Ref #",
     "amount": "Amount",
-    "balance": "Balance",
-    "noTransactions": "No transactions found."
+    "balance": "Running Balance",
+    "noTransactions": "No transactions found.",
+    "transactionDetails": "Transaction Details",
+    "discount": "Discount",
+    "types": {
+      "invoice": "Invoice",
+      "payment": "Payment",
+      "return": "Return"
+    }
   },
   "products": {
     "title": "Product Catalog",

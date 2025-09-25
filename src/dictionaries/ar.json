@@ -48,12 +48,20 @@
   "statement": {
     "title": "كشف حساب الصيدلية",
     "description": "سجل المعاملات والمدفوعات والأرصدة المستحقة.",
+    "backButton": "العودة إلى الصيدلية",
     "date": "التاريخ",
-    "transactionType": "نوع المعاملة",
-    "invoiceNo": "رقم الفاتورة",
+    "transactionType": "النوع",
+    "referenceNo": "رقم المرجع",
     "amount": "المبلغ",
-    "balance": "الرصيد",
-    "noTransactions": "لم يتم العثور على معاملات."
+    "balance": "الرصيد المتحرك",
+    "noTransactions": "لم يتم العثور على معاملات.",
+    "transactionDetails": "تفاصيل المعاملة",
+    "discount": "الخصم",
+    "types": {
+      "invoice": "فاتورة",
+      "payment": "دفعة",
+      "return": "مرتجع"
+    }
   },
   "products": {
     "title": "كتالوج المنتجات",
