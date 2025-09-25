@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/use-auth';
 import type { Locale } from '@/i18n-config';
 import MainLayout from '@/components/shared/main-layout';
 import { getDictionary } from '@/lib/dictionary';
+import { ThemeProvider } from '@/components/shared/theme-provider';
 
 const authRoutes = ['/login', '/signup'];
 
@@ -20,7 +21,6 @@ export default function LangLayout({
   const router = useRouter();
   const pathname = usePathname();
 
-  // Dictionaries are now fetched inside the component when needed
   const [dictionary, setDictionary] = React.useState<any>(null);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function LangLayout({
 
 
   useEffect(() => {
-    if (isLoading) return; // Wait until auth state is confirmed
+    if (isLoading) return;
 
     const isAuthRoute = authRoutes.some(route => pathname.endsWith(route));
 
@@ -39,49 +39,38 @@ export default function LangLayout({
   }, [user, isLoading, pathname, router, params.lang]);
 
   const isAuthRoute = authRoutes.some(route => pathname.endsWith(route));
+  
+  const content = () => {
+    if (isAuthRoute) {
+      return children;
+    }
 
-  if (isLoading || (!user && !isAuthRoute)) {
-    // Show a loading screen or a blank page while checking auth
-    // Or while redirecting to login
+    if (isLoading || (!user && !isAuthRoute) || !dictionary) {
+      return (
+        <div className="flex h-screen items-center justify-center">
+            Loading...
+        </div>
+      );
+    }
+
     return (
-        <html lang={params.lang} dir={params.lang === 'ar' ? 'rtl' : 'ltr'}>
-            <body>
-              <div className="flex h-screen items-center justify-center">
-                Loading...
-              </div>
-            </body>
-        </html>
-    );
-  }
-
-  if (isAuthRoute) {
-    return (
-      <html lang={params.lang} dir={params.lang === 'ar' ? 'rtl' : 'ltr'}>
-        <body>
-          {children}
-        </body>
-      </html>
-    );
-  }
-
-  if (!dictionary) {
-     return (
-        <html lang={params.lang} dir={params.lang === 'ar' ? 'rtl' : 'ltr'}>
-            <body>
-              <div className="flex h-screen items-center justify-center">
-                Loading...
-              </div>
-            </body>
-        </html>
+        <MainLayout lang={params.lang} dictionary={dictionary}>
+            {children}
+        </MainLayout>
     );
   }
 
   return (
     <html lang={params.lang} dir={params.lang === 'ar' ? 'rtl' : 'ltr'}>
         <body>
-            <MainLayout lang={params.lang} dictionary={dictionary}>
-                {children}
-            </MainLayout>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {content()}
+          </ThemeProvider>
         </body>
     </html>
   );
