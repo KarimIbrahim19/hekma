@@ -32,7 +32,7 @@ export default function AppSidebar({ lang, dictionary }: AppSidebarProps) {
   ];
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" side={lang === 'ar' ? 'right' : 'left'}>
       <SidebarHeader>
         <AppLogo />
       </SidebarHeader>
