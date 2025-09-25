@@ -1,0 +1,291 @@
+{
+  "entities": {
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents a pharmacy owner's profile.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserProfile entity."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The user's first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The user's last name."
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address.",
+          "format": "email"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The user's phone number."
+        },
+        "pharmacyId": {
+          "type": "string",
+          "description": "Reference to Pharmacy. (Relationship: UserProfile 1:1 Pharmacy)"
+        }
+      },
+      "required": [
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "phoneNumber",
+        "pharmacyId"
+      ]
+    },
+    "Pharmacy": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Pharmacy",
+      "type": "object",
+      "description": "Represents a pharmacy.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Pharmacy entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the pharmacy."
+        },
+        "address": {
+          "type": "string",
+          "description": "The address of the pharmacy."
+        },
+        "contactNumber": {
+          "type": "string",
+          "description": "The contact phone number of the pharmacy."
+        },
+        "licenseNumber": {
+          "type": "string",
+          "description": "The pharmacy's license number."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "address",
+        "contactNumber",
+        "licenseNumber"
+      ]
+    },
+    "Statement": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Statement",
+      "type": "object",
+      "description": "Represents a statement for a pharmacy.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Statement entity."
+        },
+        "pharmacyId": {
+          "type": "string",
+          "description": "Reference to Pharmacy. (Relationship: Pharmacy 1:N Statement)"
+        },
+        "date": {
+          "type": "string",
+          "description": "The date of the statement.",
+          "format": "date-time"
+        },
+        "transactionHistory": {
+          "type": "string",
+          "description": "Transaction history for the statement."
+        },
+        "payments": {
+          "type": "number",
+          "description": "Payments made during the statement period."
+        },
+        "outstandingBalance": {
+          "type": "number",
+          "description": "The outstanding balance for the pharmacy."
+        }
+      },
+      "required": [
+        "id",
+        "pharmacyId",
+        "date",
+        "transactionHistory",
+        "payments",
+        "outstandingBalance"
+      ]
+    },
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "Represents a medicine product.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Product entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the medicine product."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the medicine product."
+        },
+        "price": {
+          "type": "number",
+          "description": "The price of the medicine product."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "price"
+      ]
+    },
+    "Invoice": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Invoice",
+      "type": "object",
+      "description": "Represents an invoice for a medicine order.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Invoice entity."
+        },
+        "pharmacyId": {
+          "type": "string",
+          "description": "Reference to Pharmacy. (Relationship: Pharmacy 1:N Invoice)"
+        },
+        "productId": {
+          "type": "string",
+          "description": "Reference to Product. (Relationship: Invoice 1:N Product)"
+        },
+        "date": {
+          "type": "string",
+          "description": "The date of the invoice.",
+          "format": "date-time"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "The quantity of the medicine ordered."
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "The total amount of the invoice."
+        }
+      },
+      "required": [
+        "id",
+        "pharmacyId",
+        "productId",
+        "date",
+        "quantity",
+        "totalAmount"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "UserProfile",
+          "schema": {
+            "$ref": "#/backend/entities/UserProfile"
+          },
+          "description": "Stores user profile information. Uses path-based ownership for private data. Each document is owned by the user with the corresponding {userId}. Includes denormalized 'pharmacyId' for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user.  This is automatically populated with the user's Firebase Auth UID when they create their profile."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/pharmacies/{pharmacyId}",
+        "definition": {
+          "entityName": "Pharmacy",
+          "schema": {
+            "$ref": "#/backend/entities/Pharmacy"
+          },
+          "description": "Stores pharmacy information. Accessible to authorized users (e.g., pharmacy owners with the correct `pharmacyId`).",
+          "params": [
+            {
+              "name": "pharmacyId",
+              "description": "The unique identifier of the pharmacy."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/pharmacies/{pharmacyId}/statements/{statementId}",
+        "definition": {
+          "entityName": "Statement",
+          "schema": {
+            "$ref": "#/backend/entities/Statement"
+          },
+          "description": "Stores statements for a specific pharmacy. Accessible only to the pharmacy owner with the matching `pharmacyId`. The `pharmacyId` is denormalized in each document for authorization independence.",
+          "params": [
+            {
+              "name": "pharmacyId",
+              "description": "The unique identifier of the pharmacy."
+            },
+            {
+              "name": "statementId",
+              "description": "The unique identifier of the statement."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/products/{productId}",
+        "definition": {
+          "entityName": "Product",
+          "schema": {
+            "$ref": "#/backend/entities/Product"
+          },
+          "description": "Stores medicine product information. Publicly readable.",
+          "params": [
+            {
+              "name": "productId",
+              "description": "The unique identifier of the product."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/pharmacies/{pharmacyId}/invoices/{invoiceId}",
+        "definition": {
+          "entityName": "Invoice",
+          "schema": {
+            "$ref": "#/backend/entities/Invoice"
+          },
+          "description": "Stores invoices for a specific pharmacy.  Accessible only to the pharmacy owner with the matching `pharmacyId`. The `pharmacyId` is denormalized in each document for authorization independence.",
+          "params": [
+            {
+              "name": "pharmacyId",
+              "description": "The unique identifier of the pharmacy."
+            },
+            {
+              "name": "invoiceId",
+              "description": "The unique identifier of the invoice."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to ensure authorization independence, clarity, and scalability, adhering to the principles of DBAC (Database Authentication and Authorization Control) and QAPs (Queries are not Filters). User profiles and pharmacies are stored in top-level collections. Statements and invoices are organized as subcollections under their respective pharmacy documents to maintain a clear hierarchy and enforce ownership. This approach allows for simple and robust security rules based on `request.auth.uid`.  Authorization Independence is achieved by storing the `pharmacyId` within the `UserProfile`, `Statement`, and `Invoice` documents, which allows for direct authorization checks without needing to query parent documents.  This also supports QAPs by allowing secure list operations for statements and invoices scoped to a specific pharmacy.  All collections are designed with a homogeneous security posture, preventing the mixing of data with different access needs within the same collection."
+  }
+}
