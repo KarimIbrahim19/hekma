@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -90,6 +91,7 @@ export default function StatementPage({
   }
 
   const getTransactionTypeInfo = (type: Transaction['type']) => {
+    if (!dictionary) return { label: type, variant: 'secondary' as const, amountClass: 'text-muted-foreground' };
     switch (type) {
       case 'INVOICE':
         return { label: dictionary.statement.types.invoice, variant: 'secondary' as const, amountClass: 'text-red-600' };
