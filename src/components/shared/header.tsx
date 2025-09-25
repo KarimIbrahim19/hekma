@@ -1,6 +1,5 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { AppLogo } from "@/components/shared/app-logo";
-import { UserNav } from "@/components/shared/user-nav";
 import type { Locale } from "@/i18n-config";
 import { LanguageSwitcher } from "./language-switcher";
 
@@ -20,7 +19,6 @@ export default function Header({ lang, dictionary }: HeaderProps) {
         {/* Search can be added here if needed */}
       </div>
       <LanguageSwitcher lang={lang} dictionary={dictionary} />
-      <UserNav lang={lang} dictionary={dictionary} />
     </header>
   );
 }
