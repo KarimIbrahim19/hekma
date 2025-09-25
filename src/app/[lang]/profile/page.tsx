@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { getDictionary } from '@/lib/dictionary';
@@ -9,7 +9,6 @@ import { type Locale } from '@/i18n-config';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { useAuth } from '@/hooks/use-auth';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
@@ -17,7 +16,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 
 const profileSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Invalid email address." }),
+  email: z.string().email({ message: "Invalid email address." }).optional(),
   phone: z.string().optional(),
 });
 
@@ -59,9 +58,12 @@ export default function ProfilePage({
 
   const onSubmit = async (data: ProfileFormValues) => {
     try {
-      const response = await api.put('/users/profile', data);
-      const updatedUser = response.data.data;
-      
+      await api.put('/users/profile', {
+        name: data.name,
+        phone: data.phone
+      });
+
+      const updatedUser = { ...user!, name: data.name, phone: data.phone };
       setUser(updatedUser);
       localStorage.setItem('user', JSON.stringify(updatedUser));
 
@@ -133,7 +135,7 @@ export default function ProfilePage({
                   <FormItem>
                     <FormLabel>{dictionary.profile.email}</FormLabel>
                     <FormControl>
-                      <Input type="email" {...field} />
+                      <Input type="email" {...field} disabled />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
