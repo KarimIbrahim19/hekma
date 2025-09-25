@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { type Locale } from '@/i18n-config';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,7 +18,8 @@ import { AppLogo } from '@/components/shared/app-logo';
 import { useAuth } from '@/hooks/use-auth';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const dict = {
     en: {
@@ -31,6 +32,8 @@ const dict = {
         signup: "Sign Up",
         rememberMe: "Remember me",
         loginError: "Login Failed",
+        english: "English",
+        arabic: "العربية",
     },
     ar: {
         welcomeBack: "مرحباً بعودتك",
@@ -42,6 +45,8 @@ const dict = {
         signup: "إنشاء حساب",
         rememberMe: "تذكرنى",
         loginError: "فشل تسجيل الدخول",
+        english: "English",
+        arabic: "العربية",
     }
 }
 
@@ -53,7 +58,10 @@ export default function LoginPage({
 }) {
   const dictionary = dict[lang];
   const router = useRouter();
+  const pathname = usePathname();
   const { login } = useAuth();
+  const { theme, setTheme } = useTheme();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
@@ -66,16 +74,41 @@ export default function LoginPage({
     setError(null);
     try {
       await login(email, password, rememberMe);
-      router.push(`/${lang}`);
+      // The login function will handle redirection
     } catch (err: any) {
       setError(err.message || dictionary.loginError);
     } finally {
       setIsLoading(false);
     }
   };
+  
+  const redirectedPathName = (locale: string) => {
+    if (!pathname) return '/';
+    const segments = pathname.split('/');
+    segments[1] = locale;
+    return segments.join('/');
+  };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
+    <div className="relative flex min-h-screen items-center justify-center bg-background p-4">
+       <div className="absolute top-4 right-4 flex items-center gap-2">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        >
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+        <Link href={redirectedPathName('en')}>
+          <Button variant={lang === 'en' ? 'secondary' : 'outline'} size="sm">{dictionary.english}</Button>
+        </Link>
+        <Link href={redirectedPathName('ar')}>
+          <Button variant={lang === 'ar' ? 'secondary'
+          : 'outline'} size="sm">{dictionary.arabic}</Button>
+        </Link>
+      </div>
       <Card className="mx-auto w-full max-w-sm shadow-2xl">
         <CardHeader className="space-y-1 text-center">
             <div className="flex justify-center mb-4">

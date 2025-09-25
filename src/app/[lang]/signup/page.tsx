@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { type Locale } from '@/i18n-config';
 import { Button } from '@/components/ui/button';
 import {
@@ -17,8 +17,9 @@ import { Label } from '@/components/ui/label';
 import { AppLogo } from '@/components/shared/app-logo';
 import { useAuth } from '@/hooks/use-auth';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle, Terminal } from 'lucide-react';
+import { AlertCircle, Moon, Sun } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useTheme } from 'next-themes';
 
 const dict = {
   en: {
@@ -33,6 +34,8 @@ const dict = {
     signupError: 'Signup Failed',
     signupSuccessTitle: 'Account Created!',
     signupSuccessDescription: 'You can now log in with your credentials.',
+    english: 'English',
+    arabic: 'العربية',
   },
   ar: {
     createAccount: 'إنشاء حساب',
@@ -46,6 +49,8 @@ const dict = {
     signupError: 'فشل إنشاء الحساب',
     signupSuccessTitle: 'تم إنشاء الحساب!',
     signupSuccessDescription: 'يمكنك الآن تسجيل الدخول باستخدام بياناتك.',
+    english: 'English',
+    arabic: 'العربية',
   },
 };
 
@@ -56,8 +61,10 @@ export default function SignupPage({
 }) {
   const dictionary = dict[lang];
   const router = useRouter();
+  const pathname = usePathname();
   const { signup } = useAuth();
   const { toast } = useToast();
+  const { theme, setTheme } = useTheme();
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -83,9 +90,35 @@ export default function SignupPage({
       setIsLoading(false);
     }
   };
+  
+  const redirectedPathName = (locale: string) => {
+    if (!pathname) return '/';
+    const segments = pathname.split('/');
+    segments[1] = locale;
+    return segments.join('/');
+  };
+
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
+    <div className="relative flex min-h-screen items-center justify-center bg-background p-4">
+      <div className="absolute top-4 right-4 flex items-center gap-2">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        >
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+        <Link href={redirectedPathName('en')}>
+          <Button variant={lang === 'en' ? 'secondary' : 'outline'} size="sm">{dictionary.english}</Button>
+        </Link>
+        <Link href={redirectedPathName('ar')}>
+          <Button variant={lang === 'ar' ? 'secondary'
+          : 'outline'} size="sm">{dictionary.arabic}</Button>
+        </Link>
+      </div>
       <Card className="mx-auto w-full max-w-sm shadow-2xl">
         <CardHeader className="space-y-1 text-center">
           <div className="flex justify-center mb-4">
