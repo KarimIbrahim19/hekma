@@ -11,8 +11,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { CreditCard, MapPin, Scale, Landmark } from 'lucide-react';
+import { CreditCard, Landmark, MapPin } from 'lucide-react';
 import { getDictionary } from '@/lib/dictionary';
+import { useRouter } from 'next/navigation';
 
 interface PharmacyData {
   id: number;
@@ -28,6 +29,7 @@ export default function PharmacyPage({
   params: { lang: Locale };
 }) {
   const { api } = useAuth();
+  const router = useRouter();
   const [pharmacy, setPharmacy] = useState<PharmacyData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +44,11 @@ export default function PharmacyPage({
       setIsLoading(true);
       try {
         const response = await api.get('/pharmacies/current');
-        setPharmacy(response.data.data);
+        if (response.data.data === null) {
+          router.push(`/${lang}/pharmacy/select`);
+        } else {
+          setPharmacy(response.data.data);
+        }
         setError(null);
       } catch (err: any) {
         setError(err.response?.data?.message || 'Failed to fetch pharmacy data.');
@@ -52,7 +58,7 @@ export default function PharmacyPage({
       }
     };
     fetchPharmacy();
-  }, [api]);
+  }, [api, lang, router]);
 
   if (isLoading || !dictionary) {
     return (
@@ -81,7 +87,8 @@ export default function PharmacyPage({
   }
 
   if (!pharmacy) {
-    return <div className='text-center'>{dictionary.pharmacy.noPharmacyFound}</div>;
+    // This state is briefly visible while redirecting
+    return <div className='text-center'>{dictionary.pharmacy.noPharmacyFound || 'No pharmacy found, redirecting...'}</div>;
   }
   
   const formatCurrency = (amount: number) => {

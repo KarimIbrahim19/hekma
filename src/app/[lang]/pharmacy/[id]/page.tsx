@@ -14,7 +14,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { FileText, MapPin, Phone, ShieldCheck } from 'lucide-react';
 
-export default async function PharmacyPage({
+// NOTE: This page currently uses placeholder data.
+// It should be updated to fetch dynamic data for the selected pharmacy ID.
+
+export default async function PharmacyDetailPage({
   params: { lang, id },
 }: {
   params: { lang: Locale; id: string };
@@ -30,7 +33,7 @@ export default async function PharmacyPage({
     <div className="container mx-auto">
        <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">{lang === 'ar' ? pharmacy.nameAr : pharmacy.name}</h1>
-        <p className="text-muted-foreground">{dictionary.pharmacy.title}</p>
+        <p className="text-muted-foreground">{dictionary.pharmacy.details}</p>
       </div>
 
       <Card className="overflow-hidden">
