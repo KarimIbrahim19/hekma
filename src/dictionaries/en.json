@@ -67,7 +67,16 @@
     "title": "Product Catalog",
     "description": "Browse our extensive list of available medicines.",
     "search": "Search products...",
-    "price": "Price"
+    "price": "Price",
+    "medicine": "Medicine",
+    "cosmetics": "Cosmetics",
+    "allCategories": "All Categories",
+    "noProducts": "No products found matching your criteria.",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of",
+    "currency": "SAR"
   },
   "invoices": {
     "title": "Invoices",
