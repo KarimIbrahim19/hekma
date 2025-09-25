@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import type { Locale } from '@/i18n-config';
@@ -40,30 +40,19 @@ export default function LangLayoutClient({
   const currentPath = pathname.substring(pathname.indexOf('/', 1));
   const isAuthRoute = authRoutes.some(route => currentPath === route);
 
-  const content = () => {
-    if (isAuthRoute) {
-      // While loading or if user is logged in on an auth route, show loading
-      if (isLoading || (user && isAuthRoute)) {
-        return (
-          <div className="flex h-screen items-center justify-center">
-            Loading...
-          </div>
-        );
-      }
-      // Otherwise, show the auth page (login/signup)
-      return children;
-    }
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
 
-    // For protected routes, show loading until user is verified
-    if (isLoading || !user) {
-      return (
-        <div className="flex h-screen items-center justify-center">
-            Loading...
-        </div>
-      );
-    }
+  if (!user && isAuthRoute) {
+    return <>{children}</>;
+  }
 
-    // Once user is loaded, show the main layout
+  if (user && !isAuthRoute) {
     return (
         <MainLayout lang={lang} dictionary={dictionary}>
             {children}
@@ -71,5 +60,11 @@ export default function LangLayoutClient({
     );
   }
 
-  return content();
+  // Covers the case where user is logged in on an auth route (while redirecting)
+  // or user is not logged in on a protected route (while redirecting)
+  return (
+    <div className="flex h-screen items-center justify-center">
+        Loading...
+    </div>
+  );
 }
