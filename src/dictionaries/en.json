@@ -1,0 +1,94 @@
+
+{
+  "appName": "PharmaLink",
+  "nav": {
+    "selectPharmacy": "Select Pharmacy",
+    "products": "Products",
+    "invoices": "Invoices",
+    "newInvoice": "New Invoice",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "welcomeBack": "Welcome Back",
+    "loginPrompt": "Enter your credentials to access your account",
+    "email": "Email",
+    "password": "Password",
+    "dontHaveAccount": "Don't have an account?",
+    "createAccount": "Create an account",
+    "createAccountPrompt": "Enter your details below to create a new account",
+    "name": "Full Name",
+    "haveAccount": "Already have an account?",
+    "language": "Language"
+  },
+  "selectPharmacy": {
+    "title": "Select a Pharmacy",
+    "description": "Choose a pharmacy to manage its details, products, and invoices."
+  },
+  "pharmacy": {
+    "title": "Pharmacy Details",
+    "licenseNumber": "License Number",
+    "address": "Address",
+    "contactInfo": "Contact Information",
+    "viewStatement": "View Statement"
+  },
+  "statement": {
+    "title": "Pharmacy Statement",
+    "description": "Transaction history, payments, and outstanding balances.",
+    "date": "Date",
+    "transactionType": "Transaction Type",
+    "invoiceNo": "Invoice #",
+    "amount": "Amount",
+    "balance": "Balance",
+    "noTransactions": "No transactions found."
+  },
+  "products": {
+    "title": "Product Catalog",
+    "description": "Browse our extensive list of available medicines.",
+    "search": "Search products...",
+    "price": "Price"
+  },
+  "invoices": {
+    "title": "Invoices",
+    "description": "Manage all your invoices.",
+    "invoice": "Invoice",
+    "date": "Date",
+    "pharmacy": "Pharmacy",
+    "amount": "Amount",
+    "status": "Status",
+    "actions": "Actions",
+    "newInvoice": "Create New Invoice",
+    "noInvoices": "No invoices found.",
+    "statuses": {
+      "paid": "Paid",
+      "pending": "Pending",
+      "overdue": "Overdue"
+    }
+  },
+  "newInvoice": {
+    "title": "Create New Invoice",
+    "description": "Select products to generate a new invoice.",
+    "selectPharmacy": "Select Pharmacy",
+    "selectProduct": "Select a product",
+    "product": "Product",
+    "quantity": "Quantity",
+    "price": "Price",
+    "total": "Total",
+    "addProduct": "Add Product",
+    "subtotal": "Subtotal",
+    "tax": "Tax (15%)",
+    "grandTotal": "Grand Total",
+    "createInvoice": "Create Invoice",
+    "invoiceDate": "Invoice Date"
+  },
+  "profile": {
+    "title": "User Profile",
+    "description": "Manage your account settings.",
+    "name": "Name",
+    "email": "Email",
+    "updateProfile": "Update Profile",
+    "profileUpdated": "Profile updated successfully."
+  }
+}

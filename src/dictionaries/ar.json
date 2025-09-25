@@ -1,0 +1,94 @@
+
+{
+  "appName": "فارما لينك",
+  "nav": {
+    "selectPharmacy": "اختر صيدلية",
+    "products": "المنتجات",
+    "invoices": "الفواتير",
+    "newInvoice": "فاتورة جديدة",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "welcomeBack": "مرحباً بعودتك",
+    "loginPrompt": "أدخل بياناتك للوصول إلى حسابك",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "createAccount": "إنشاء حساب",
+    "createAccountPrompt": "أدخل بياناتك أدناه لإنشاء حساب جديد",
+    "name": "الاسم الكامل",
+    "haveAccount": "لديك حساب بالفعل؟",
+    "language": "اللغة"
+  },
+  "selectPharmacy": {
+    "title": "اختر صيدلية",
+    "description": "اختر صيدلية لإدارة تفاصيلها ومنتجاتها وفواتيرها."
+  },
+  "pharmacy": {
+    "title": "تفاصيل الصيدلية",
+    "licenseNumber": "رقم الترخيص",
+    "address": "العنوان",
+    "contactInfo": "معلومات الاتصال",
+    "viewStatement": "عرض كشف الحساب"
+  },
+  "statement": {
+    "title": "كشف حساب الصيدلية",
+    "description": "سجل المعاملات والمدفوعات والأرصدة المستحقة.",
+    "date": "التاريخ",
+    "transactionType": "نوع المعاملة",
+    "invoiceNo": "رقم الفاتورة",
+    "amount": "المبلغ",
+    "balance": "الرصيد",
+    "noTransactions": "لم يتم العثور على معاملات."
+  },
+  "products": {
+    "title": "كتالوج المنتجات",
+    "description": "تصفح قائمتنا الشاملة من الأدوية المتاحة.",
+    "search": "ابحث عن منتجات...",
+    "price": "السعر"
+  },
+  "invoices": {
+    "title": "الفواتير",
+    "description": "إدارة جميع فواتيرك.",
+    "invoice": "فاتورة",
+    "date": "التاريخ",
+    "pharmacy": "الصيدلية",
+    "amount": "المبلغ",
+    "status": "الحالة",
+    "actions": "الإجراءات",
+    "newInvoice": "إنشاء فاتورة جديدة",
+    "noInvoices": "لم يتم العثور على فواتير.",
+    "statuses": {
+      "paid": "مدفوعة",
+      "pending": "قيد الانتظار",
+      "overdue": "متأخرة"
+    }
+  },
+  "newInvoice": {
+    "title": "إنشاء فاتورة جديدة",
+    "description": "اختر المنتجات لإنشاء فاتورة جديدة.",
+    "selectPharmacy": "اختر صيدلية",
+    "selectProduct": "اختر منتج",
+    "product": "المنتج",
+    "quantity": "الكمية",
+    "price": "السعر",
+    "total": "المجموع",
+    "addProduct": "أضف منتج",
+    "subtotal": "المجموع الفرعي",
+    "tax": "الضريبة (15%)",
+    "grandTotal": "المجموع الكلي",
+    "createInvoice": "إنشاء الفاتورة",
+    "invoiceDate": "تاريخ الفاتورة"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "description": "إدارة إعدادات حسابك.",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "updateProfile": "تحديث الملف الشخصي",
+    "profileUpdated": "تم تحديث الملف الشخصي بنجاح."
+  }
+}

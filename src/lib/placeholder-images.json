@@ -1,3 +1,70 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "user-avatar",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1590086782792-42dd2350140d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTg2OTE2MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "pharmacy-logo-1",
+      "description": "Logo for Al-Dawaa Pharmacy",
+      "imageUrl": "https://images.unsplash.com/photo-1705988142466-e468bc654eeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaGFybWFjeSUyMGxvZ298ZW58MHx8fHwxNzU4NzY1MDU4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pharmacy logo"
+    },
+    {
+      "id": "pharmacy-logo-2",
+      "description": "Logo for Nahdi Pharmacy",
+      "imageUrl": "https://images.unsplash.com/photo-1705988142466-e468bc654eeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaGFybWFjeSUyMGxvZ298ZW58MHx8fHwxNzU4NzY1MDU4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pharmacy logo"
+    },
+    {
+      "id": "pharmacy-logo-3",
+      "description": "Logo for Green Cross Pharmacy",
+      "imageUrl": "https://images.unsplash.com/photo-1719319384332-82f969b6e48c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwaGFybWFjeSUyMGxvZ298ZW58MHx8fHwxNzU4NzY1MDU4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pharmacy logo"
+    },
+    {
+      "id": "product-1",
+      "description": "Image of Panadol tablets",
+      "imageUrl": "https://images.unsplash.com/photo-1622147459102-8a0f3727e4c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtZWRpY2luZSUyMHBpbGxzfGVufDB8fHx8MTc1ODY5MDUxNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "medicine pills"
+    },
+    {
+      "id": "product-2",
+      "description": "Image of Aspirin bottle",
+      "imageUrl": "https://images.unsplash.com/photo-1562243061-204550d8a2c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtZWRpY2luZSUyMGJvdHRsZXxlbnwwfHx8fDE3NTg2ODc2MDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "medicine bottle"
+    },
+    {
+      "id": "product-3",
+      "description": "Image of Vitamin C supplement",
+      "imageUrl": "https://images.unsplash.com/photo-1622227922682-56c92e523e58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx2aXRhbWluc3xlbnwwfHx8fDE3NTg3NjU0ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "vitamins"
+    },
+    {
+      "id": "product-4",
+      "description": "Image of cough syrup",
+      "imageUrl": "https://images.unsplash.com/photo-1700104494950-b2ca510a3dd6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzeXJ1cCUyMG1lZGljaW5lfGVufDB8fHx8MTc1ODc0NDg5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "syrup medicine"
+    },
+    {
+      "id": "product-5",
+      "description": "Image of an antibiotic capsule pack",
+      "imageUrl": "https://images.unsplash.com/photo-1704650311329-fb978a50e5e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjYXBzdWxlcyUyMG1lZGljaW5lfGVufDB8fHx8MTc1ODc2NTQ4NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "capsules medicine"
+    },
+    {
+      "id": "product-6",
+      "description": "Image of a pain relief gel tube",
+      "imageUrl": "https://images.unsplash.com/photo-1698159929647-61fbbe9a8d15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvaW50bWVudCUyMHR1YmV8ZW58MHx8fHwxNzU4NzA4NTE5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ointment tube"
+    },
+    {
+      "id": "auth-background",
+      "description": "Abstract background for authentication pages",
+      "imageUrl": "https://images.unsplash.com/photo-1595411425732-e69c1abe2763?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHBhdHRlcm58ZW58MHx8fHwxNzU4Njg1MDM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract pattern"
+    }
+  ]
 }
