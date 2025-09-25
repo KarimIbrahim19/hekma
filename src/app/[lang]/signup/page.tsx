@@ -34,8 +34,6 @@ const dict = {
     signupError: 'Signup Failed',
     signupSuccessTitle: 'Account Created!',
     signupSuccessDescription: 'You can now log in with your credentials.',
-    english: 'English',
-    arabic: 'العربية',
   },
   ar: {
     createAccount: 'إنشاء حساب',
@@ -49,8 +47,6 @@ const dict = {
     signupError: 'فشل إنشاء الحساب',
     signupSuccessTitle: 'تم إنشاء الحساب!',
     signupSuccessDescription: 'يمكنك الآن تسجيل الدخول باستخدام بياناتك.',
-    english: 'English',
-    arabic: 'العربية',
   },
 };
 
@@ -98,6 +94,8 @@ export default function SignupPage({
     return segments.join('/');
   };
 
+  const targetLang = lang === 'en' ? 'ar' : 'en';
+
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-background p-4">
@@ -111,12 +109,8 @@ export default function SignupPage({
           <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
         </Button>
-        <Link href={redirectedPathName('en')}>
-          <Button variant={lang === 'en' ? 'secondary' : 'outline'} size="sm">{dictionary.english}</Button>
-        </Link>
-        <Link href={redirectedPathName('ar')}>
-          <Button variant={lang === 'ar' ? 'secondary'
-          : 'outline'} size="sm">{dictionary.arabic}</Button>
+        <Link href={redirectedPathName(targetLang)}>
+          <Button variant='outline' size="sm">{targetLang === 'ar' ? 'ع' : 'en'}</Button>
         </Link>
       </div>
       <Card className="mx-auto w-full max-w-sm shadow-2xl">

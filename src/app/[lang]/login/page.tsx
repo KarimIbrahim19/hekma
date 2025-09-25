@@ -32,8 +32,6 @@ const dict = {
         signup: "Sign Up",
         rememberMe: "Remember me",
         loginError: "Login Failed",
-        english: "English",
-        arabic: "العربية",
     },
     ar: {
         welcomeBack: "مرحباً بعودتك",
@@ -45,8 +43,6 @@ const dict = {
         signup: "إنشاء حساب",
         rememberMe: "تذكرنى",
         loginError: "فشل تسجيل الدخول",
-        english: "English",
-        arabic: "العربية",
     }
 }
 
@@ -89,6 +85,8 @@ export default function LoginPage({
     return segments.join('/');
   };
 
+  const targetLang = lang === 'en' ? 'ar' : 'en';
+
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-background p-4">
        <div className="absolute top-4 right-4 flex items-center gap-2">
@@ -101,12 +99,8 @@ export default function LoginPage({
           <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
         </Button>
-        <Link href={redirectedPathName('en')}>
-          <Button variant={lang === 'en' ? 'secondary' : 'outline'} size="sm">{dictionary.english}</Button>
-        </Link>
-        <Link href={redirectedPathName('ar')}>
-          <Button variant={lang === 'ar' ? 'secondary'
-          : 'outline'} size="sm">{dictionary.arabic}</Button>
+        <Link href={redirectedPathName(targetLang)}>
+            <Button variant='outline' size="sm">{targetLang === 'ar' ? 'ع' : 'en'}</Button>
         </Link>
       </div>
       <Card className="mx-auto w-full max-w-sm shadow-2xl">
