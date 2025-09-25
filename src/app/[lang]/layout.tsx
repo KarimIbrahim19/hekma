@@ -1,6 +1,7 @@
+
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import type { Locale } from '@/i18n-config';
@@ -20,10 +21,12 @@ export default function LangLayout({
   const { user, isLoading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
+  const [lang, setLang] = useState(params.lang);
 
-  const [dictionary, setDictionary] = React.useState<any>(null);
+  const [dictionary, setDictionary] = useState<any>(null);
 
   useEffect(() => {
+    setLang(params.lang);
     getDictionary(params.lang).then(setDictionary);
   }, [params.lang]);
 
@@ -34,9 +37,9 @@ export default function LangLayout({
     const isAuthRoute = authRoutes.some(route => pathname.endsWith(route));
 
     if (!user && !isAuthRoute) {
-      router.push(`/${params.lang}/login`);
+      router.push(`/${lang}/login`);
     }
-  }, [user, isLoading, pathname, router, params.lang]);
+  }, [user, isLoading, pathname, router, lang]);
 
   const isAuthRoute = authRoutes.some(route => pathname.endsWith(route));
   
@@ -54,7 +57,7 @@ export default function LangLayout({
     }
 
     return (
-        <MainLayout lang={params.lang} dictionary={dictionary}>
+        <MainLayout lang={lang} dictionary={dictionary}>
             {children}
         </MainLayout>
     );
