@@ -5,7 +5,7 @@ import axios from 'axios';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 
-const API_URL = 'http://localhost:3001/api'; // Using port from your latest instruction
+const API_URL = 'http://localhost:3001/api'; 
 
 interface User {
   name: string;
@@ -23,6 +23,7 @@ interface AuthContextType {
   login: (email: string, password: string, rememberMe?: boolean) => Promise<void>;
   signup: (fullName: string, email: string, password: string, phone: string) => Promise<void>;
   logout: () => void;
+  api: typeof axios;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -129,7 +130,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       
       const targetLang = userData.lang || 'en';
-      router.push(`/${targetLang}`);
+      router.push(`/${targetLang}/pharmacy`);
 
 
     } catch (error: any) {
@@ -177,13 +178,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const value = {
+  const value: AuthContextType = {
     user,
     token,
     isLoading,
     login,
     signup,
     logout,
+    api,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -3,6 +3,7 @@
   "appName": "فارما لينك",
   "nav": {
     "selectPharmacy": "اختر صيدلية",
+    "myPharmacy": "صيدليتي",
     "products": "المنتجات",
     "invoices": "الفواتير",
     "newInvoice": "فاتورة جديدة",
@@ -33,11 +34,16 @@
     "description": "اختر صيدلية لإدارة تفاصيلها ومنتجاتها وفواتيرها."
   },
   "pharmacy": {
-    "title": "تفاصيل الصيدلية",
+    "title": "لوحة تحكم صيدليتك.",
+    "details": "تفاصيل الصيدلية",
+    "subtext": "هذه هي المعلومات الحالية لصيدليتك.",
     "licenseNumber": "رقم الترخيص",
     "address": "العنوان",
     "contactInfo": "معلومات الاتصال",
-    "viewStatement": "عرض كشف الحساب"
+    "viewStatement": "عرض كشف الحساب",
+    "balance": "الرصيد الحالي",
+    "creditLimit": "الحد الائتماني",
+    "noPharmacyFound": "لم يتم العثور على معلومات الصيدلية لحسابك."
   },
   "statement": {
     "title": "كشف حساب الصيدلية",

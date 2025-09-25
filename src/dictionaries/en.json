@@ -3,6 +3,7 @@
   "appName": "PharmaLink",
   "nav": {
     "selectPharmacy": "Select Pharmacy",
+    "myPharmacy": "My Pharmacy",
     "products": "Products",
     "invoices": "Invoices",
     "newInvoice": "New Invoice",
@@ -33,11 +34,16 @@
     "description": "Choose a pharmacy to manage its details, products, and invoices."
   },
   "pharmacy": {
-    "title": "Pharmacy Details",
+    "title": "Your pharmacy dashboard.",
+    "details": "Pharmacy Details",
+    "subtext": "Here's the current information for your pharmacy.",
     "licenseNumber": "License Number",
     "address": "Address",
     "contactInfo": "Contact Information",
-    "viewStatement": "View Statement"
+    "viewStatement": "View Statement",
+    "balance": "Current Balance",
+    "creditLimit": "Credit Limit",
+    "noPharmacyFound": "No pharmacy information found for your account."
   },
   "statement": {
     "title": "Pharmacy Statement",

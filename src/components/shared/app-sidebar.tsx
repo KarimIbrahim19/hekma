@@ -31,7 +31,7 @@ export default function AppSidebar({ lang, dictionary }: AppSidebarProps) {
   const isActive = (path: string) => pathname === `/${lang}${path}`;
 
   const navItems = [
-    { href: '/', icon: Home, label: dictionary.nav.selectPharmacy },
+    { href: '/pharmacy', icon: Home, label: dictionary.nav.myPharmacy },
     { href: '/products', icon: Package, label: dictionary.nav.products },
     { href: '/invoices', icon: FileText, label: dictionary.nav.invoices },
     { href: '/invoices/new', icon: FilePlus, label: dictionary.nav.newInvoice },
