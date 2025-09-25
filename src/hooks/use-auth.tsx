@@ -34,12 +34,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
   const { setTheme } = useTheme();
+  
+  const api = axios.create({
+    baseURL: API_URL,
+  });
 
   useEffect(() => {
     const initializeAuth = () => {
       const storedToken = localStorage.getItem('token');
       const storedUser = localStorage.getItem('user');
-      const storedRefreshToken = localStorage.getItem('refreshToken');
 
       if (storedToken && storedUser) {
         const userData: User = JSON.parse(storedUser);
@@ -48,8 +51,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (userData.theme) {
           setTheme(userData.theme);
         }
-        // If there's a refresh token, we assume we might need to refresh on load.
-        // For simplicity here, we'll let the API call failure trigger refresh.
       }
       setIsLoading(false);
     };
@@ -58,8 +59,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Setup axios interceptor
   useEffect(() => {
-    const api = axios.create();
-
     const responseInterceptor = api.interceptors.response.use(
       (response) => response,
       async (error) => {
@@ -101,6 +100,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       api.interceptors.response.eject(responseInterceptor);
       api.interceptors.request.eject(requestInterceptor);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const login = async (email: string, password: string, rememberMe = false) => {
@@ -161,14 +161,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const logout = () => {
-    setToken(null);
-    setUser(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('refreshToken');
-    const lang = pathname.split('/')[1] || 'en';
-    router.push(`/${lang}/login`);
+  const logout = async () => {
+    try {
+        await api.post('/auth/logout');
+    } catch (error) {
+        console.error('Server-side logout failed, proceeding with client-side logout.', error);
+    } finally {
+        setToken(null);
+        setUser(null);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('refreshToken');
+        const lang = pathname.split('/')[1] || 'en';
+        router.push(`/${lang}/login`);
+    }
   };
 
   const value = {
