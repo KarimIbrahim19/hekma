@@ -88,28 +88,31 @@ export default function LoginPage({
   const targetLang = lang === 'en' ? 'ar' : 'en';
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-background p-4">
-       <div className="absolute top-4 right-4 flex items-center gap-2">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-        >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-        <Link href={redirectedPathName(targetLang)}>
-            <Button variant='outline' size="sm">{targetLang === 'ar' ? 'ع' : 'en'}</Button>
-        </Link>
-      </div>
+    <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <Card className="mx-auto w-full max-w-sm shadow-2xl">
-        <CardHeader className="space-y-1 text-center">
-            <div className="flex justify-center mb-4">
-                <AppLogo />
-            </div>
-          <CardTitle className="text-2xl font-bold">{dictionary.welcomeBack}</CardTitle>
-          <CardDescription>{dictionary.loginPrompt}</CardDescription>
+        <CardHeader className="space-y-1">
+          <div className="flex justify-between items-center mb-4">
+              <AppLogo />
+              <div className="flex items-center gap-2">
+                  <Button
+                      variant="outline"
+                      size="icon"
+                      className='h-8 w-8'
+                      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  >
+                      <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                      <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                      <span className="sr-only">Toggle theme</span>
+                  </Button>
+                  <Link href={redirectedPathName(targetLang)}>
+                      <Button variant='outline' size="sm">{targetLang === 'ar' ? 'ع' : 'en'}</Button>
+                  </Link>
+              </div>
+          </div>
+          <div className='text-center'>
+            <CardTitle className="text-2xl font-bold">{dictionary.welcomeBack}</CardTitle>
+            <CardDescription>{dictionary.loginPrompt}</CardDescription>
+          </div>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
