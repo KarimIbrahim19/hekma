@@ -20,8 +20,11 @@
     "createAccount": "Create an account",
     "createAccountPrompt": "Enter your details below to create a new account",
     "name": "Full Name",
+    "phone": "Phone Number",
     "haveAccount": "Already have an account?",
-    "language": "Language"
+    "language": "Language",
+    "signupSuccessTitle": "Account Created!",
+    "signupSuccessDescription": "You can now log in with your credentials."
   },
   "selectPharmacy": {
     "title": "Select a Pharmacy",

@@ -20,8 +20,11 @@
     "createAccount": "إنشاء حساب",
     "createAccountPrompt": "أدخل بياناتك أدناه لإنشاء حساب جديد",
     "name": "الاسم الكامل",
+    "phone": "رقم الهاتف",
     "haveAccount": "لديك حساب بالفعل؟",
-    "language": "اللغة"
+    "language": "اللغة",
+    "signupSuccessTitle": "تم إنشاء الحساب!",
+    "signupSuccessDescription": "يمكنك الآن تسجيل الدخول باستخدام بياناتك."
   },
   "selectPharmacy": {
     "title": "اختر صيدلية",

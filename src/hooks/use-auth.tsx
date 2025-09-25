@@ -20,6 +20,7 @@ interface AuthContextType {
   token: string | null;
   isLoading: boolean;
   login: (email: string, password: string, rememberMe?: boolean) => Promise<void>;
+  signup: (fullName: string, email: string, password: string, phone: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -70,6 +71,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const signup = async (fullName: string, email: string, password: string, phone: string) => {
+    try {
+      await axios.post(`${API_URL}/auth/register`, {
+        fullName,
+        email,
+        password,
+        phone,
+      });
+    } catch (error: any) {
+      console.error('Signup failed:', error);
+      if (error.response?.data?.error?.message) {
+        throw new Error(error.response.data.error.message);
+      }
+      if (error.response?.data?.message) {
+        throw new Error(error.response.data.message);
+      }
+      throw new Error('An unexpected error occurred during signup.');
+    }
+  };
+
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -84,6 +105,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     token,
     isLoading,
     login,
+    signup,
     logout,
   };
 
