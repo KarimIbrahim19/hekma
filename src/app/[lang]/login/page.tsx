@@ -47,14 +47,11 @@ const dict = {
 }
 
 
-export default function LoginPage({
-  params: { lang },
-}: {
-  params: { lang: Locale };
-}) {
-  const dictionary = dict[lang];
+export default function LoginPage() {
   const router = useRouter();
   const pathname = usePathname();
+  const lang = (pathname.split('/')[1] || 'en') as Locale;
+  const dictionary = dict[lang];
   const { login } = useAuth();
   const { theme, setTheme } = useTheme();
 
