@@ -1,7 +1,5 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { AppLogo } from "@/components/shared/app-logo";
 import type { Locale } from "@/i18n-config";
-import { LanguageSwitcher } from "./language-switcher";
 
 type HeaderProps = {
   lang: Locale;
@@ -18,7 +16,6 @@ export default function Header({ lang, dictionary }: HeaderProps) {
       <div className="relative ml-auto flex-1 md:grow-0">
         {/* Search can be added here if needed */}
       </div>
-      <LanguageSwitcher lang={lang} dictionary={dictionary} />
     </header>
   );
 }
