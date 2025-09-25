@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -110,8 +111,8 @@ export default function SignupPage({
                       className='h-8 w-8'
                       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                   >
-                      <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                      <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                      <Sun className="h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                      <Moon className="absolute h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                       <span className="sr-only">Toggle theme</span>
                   </Button>
                   <Link href={redirectedPathName(targetLang)}>
@@ -135,7 +136,7 @@ export default function SignupPage({
                 </Alert>
               )}
               <div className="space-y-2">
-                <Label htmlFor="name">{dictionary.name}</Label>
+                <Label htmlFor="name" className='rtl:text-right w-full block'>{dictionary.name}</Label>
                 <Input
                   id="name"
                   placeholder="John Doe"
@@ -146,7 +147,7 @@ export default function SignupPage({
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">{dictionary.email}</Label>
+                <Label htmlFor="email" className='rtl:text-right w-full block'>{dictionary.email}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -158,7 +159,7 @@ export default function SignupPage({
                 />
               </div>
                <div className="space-y-2">
-                <Label htmlFor="phone">{dictionary.phone}</Label>
+                <Label htmlFor="phone" className='rtl:text-right w-full block'>{dictionary.phone}</Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -170,7 +171,7 @@ export default function SignupPage({
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">{dictionary.password}</Label>
+                <Label htmlFor="password" className='rtl:text-right w-full block'>{dictionary.password}</Label>
                 <Input 
                   id="password" 
                   type="password" 
