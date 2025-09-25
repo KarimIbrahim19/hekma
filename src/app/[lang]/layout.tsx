@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { i18n, type Locale } from '@/i18n-config';
 import { getDictionary } from '@/lib/dictionary';
-import { usePathname } from 'next/navigation';
 import { headers } from 'next/headers';
 
 import MainLayout from '@/components/shared/main-layout';
@@ -42,17 +41,21 @@ export default async function LangLayout({
 
   if (isAuthRoute) {
     return (
-      <div dir={params.lang === 'ar' ? 'rtl' : 'ltr'}>
-        {children}
-      </div>
+      <html lang={params.lang} dir={params.lang === 'ar' ? 'rtl' : 'ltr'}>
+        <body>
+          {children}
+        </body>
+      </html>
     );
   }
 
   return (
-    <div dir={params.lang === 'ar' ? 'rtl' : 'ltr'}>
-      <MainLayout lang={params.lang} dictionary={dictionary}>
-        {children}
-      </MainLayout>
-    </div>
+    <html lang={params.lang} dir={params.lang === 'ar' ? 'rtl' : 'ltr'}>
+        <body>
+            <MainLayout lang={params.lang} dictionary={dictionary}>
+                {children}
+            </MainLayout>
+        </body>
+    </html>
   );
 }
