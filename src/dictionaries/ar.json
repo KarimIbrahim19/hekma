@@ -81,7 +81,7 @@
   "invoices": {
     "title": "الفواتير",
     "description": "إدارة جميع فواتيرك.",
-    "invoice": "فاتورة",
+    "invoice": "رقم الفاتورة",
     "date": "التاريخ",
     "pharmacy": "الصيدلية",
     "amount": "المبلغ",
@@ -91,7 +91,7 @@
     "noInvoices": "لم يتم العثور على فواتير.",
     "statuses": {
       "paid": "مدفوعة",
-      "pending": "قيد الانتظार",
+      "pending": "قيد الانتظار",
       "overdue": "متأخرة"
     }
   },
@@ -109,7 +109,8 @@
     "tax": "الضريبة (15%)",
     "grandTotal": "المجموع الكلي",
     "createInvoice": "إنشاء الفاتورة",
-    "invoiceDate": "تاريخ الفاتورة"
+    "invoiceDate": "تاريخ الفاتورة",
+    "invoiceCreated": "تم إنشاء الفاتورة بنجاح!"
   },
   "profile": {
     "title": "الملف الشخصي",

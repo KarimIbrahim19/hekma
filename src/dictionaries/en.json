@@ -81,7 +81,7 @@
   "invoices": {
     "title": "Invoices",
     "description": "Manage all your invoices.",
-    "invoice": "Invoice",
+    "invoice": "Invoice #",
     "date": "Date",
     "pharmacy": "Pharmacy",
     "amount": "Amount",
@@ -109,7 +109,8 @@
     "tax": "Tax (15%)",
     "grandTotal": "Grand Total",
     "createInvoice": "Create Invoice",
-    "invoiceDate": "Invoice Date"
+    "invoiceDate": "Invoice Date",
+    "invoiceCreated": "Invoice created successfully!"
   },
   "profile": {
     "title": "User Profile",
