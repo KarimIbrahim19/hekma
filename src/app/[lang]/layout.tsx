@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
-import { headers } from 'next/headers';
+import React, { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import type { Locale } from '@/i18n-config';
