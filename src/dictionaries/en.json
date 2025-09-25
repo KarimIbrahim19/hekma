@@ -117,6 +117,18 @@
     "name": "Name",
     "email": "Email",
     "updateProfile": "Update Profile",
-    "profileUpdated": "Profile updated successfully."
+    "profileUpdated": "Profile updated successfully.",
+    "profileInfo": "Profile Information",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "updatePassword": "Update Password",
+    "updating": "Updating...",
+    "passwordUpdated": "Password updated successfully.",
+    "passwordUpdateFailed": "Password Update Failed",
+    "currentPasswordRequired": "Current password is required.",
+    "passwordTooShort": "Password must be at least 6 characters.",
+    "passwordsDontMatch": "Passwords don't match."
   }
 }

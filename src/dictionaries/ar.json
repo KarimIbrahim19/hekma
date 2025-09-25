@@ -91,7 +91,7 @@
     "noInvoices": "لم يتم العثور على فواتير.",
     "statuses": {
       "paid": "مدفوعة",
-      "pending": "قيد الانتظار",
+      "pending": "قيد الانتظार",
       "overdue": "متأخرة"
     }
   },
@@ -117,6 +117,18 @@
     "name": "الاسم",
     "email": "البريد الإلكتروني",
     "updateProfile": "تحديث الملف الشخصي",
-    "profileUpdated": "تم تحديث الملف الشخصي بنجاح."
+    "profileUpdated": "تم تحديث الملف الشخصي بنجاح.",
+    "profileInfo": "معلومات الملف الشخصي",
+    "changePassword": "تغيير كلمة المرور",
+    "currentPassword": "كلمة المرور الحالية",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmPassword": "تأكيد كلمة المرور الجديدة",
+    "updatePassword": "تحديث كلمة المرور",
+    "updating": "جارٍ التحديث...",
+    "passwordUpdated": "تم تحديث كلمة المرور بنجاح.",
+    "passwordUpdateFailed": "فشل تحديث كلمة المرور",
+    "currentPasswordRequired": "كلمة المرور الحالية مطلوبة.",
+    "passwordTooShort": "يجب أن لا تقل كلمة المرور عن 6 أحرف.",
+    "passwordsDontMatch": "كلمتا المرور غير متطابقتين."
   }
 }
