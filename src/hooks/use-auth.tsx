@@ -5,7 +5,7 @@ import axios from 'axios';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 
-const API_URL = 'http://localhost:3000/api'; // Replace with your actual NestJS API URL
+const API_URL = 'http://localhost:3001/api'; // Using port from your latest instruction
 
 interface User {
   name: string;
@@ -39,6 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const initializeAuth = () => {
       const storedToken = localStorage.getItem('token');
       const storedUser = localStorage.getItem('user');
+      const storedRefreshToken = localStorage.getItem('refreshToken');
 
       if (storedToken && storedUser) {
         const userData: User = JSON.parse(storedUser);
@@ -47,11 +48,60 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (userData.theme) {
           setTheme(userData.theme);
         }
+        // If there's a refresh token, we assume we might need to refresh on load.
+        // For simplicity here, we'll let the API call failure trigger refresh.
       }
       setIsLoading(false);
     };
     initializeAuth();
   }, [setTheme]);
+
+  // Setup axios interceptor
+  useEffect(() => {
+    const api = axios.create();
+
+    const responseInterceptor = api.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const originalRequest = error.config;
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (error.response?.status === 401 && refreshToken && !originalRequest._retry) {
+          originalRequest._retry = true;
+          try {
+            const { data } = await axios.post(`${API_URL}/auth/refresh`, {
+              refreshToken,
+            });
+            const newAccessToken = data.data.token;
+            localStorage.setItem('token', newAccessToken);
+            setToken(newAccessToken);
+            originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+            return api(originalRequest);
+          } catch (refreshError) {
+            // Refresh token failed, logout user
+            logout();
+            return Promise.reject(refreshError);
+          }
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    const requestInterceptor = api.interceptors.request.use(
+      (config) => {
+        const currentToken = localStorage.getItem('token');
+        if (currentToken) {
+          config.headers['Authorization'] = `Bearer ${currentToken}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
+
+    return () => {
+      api.interceptors.response.eject(responseInterceptor);
+      api.interceptors.request.eject(requestInterceptor);
+    };
+  }, []);
 
   const login = async (email: string, password: string, rememberMe = false) => {
     try {
@@ -61,13 +111,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         rememberMe,
       });
 
-      const { token: apiToken, user: userData } = response.data.data;
+      const { token: apiToken, user: userData, refreshToken } = response.data.data;
       
       setToken(apiToken);
       setUser(userData);
       
       localStorage.setItem('token', apiToken);
       localStorage.setItem('user', JSON.stringify(userData));
+      if (rememberMe && refreshToken) {
+        localStorage.setItem('refreshToken', refreshToken);
+      } else {
+        localStorage.removeItem('refreshToken');
+      }
 
       if (userData.theme) {
         setTheme(userData.theme);
@@ -111,6 +166,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('refreshToken');
     const lang = pathname.split('/')[1] || 'en';
     router.push(`/${lang}/login`);
   };
