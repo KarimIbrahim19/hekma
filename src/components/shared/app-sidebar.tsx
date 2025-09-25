@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   Sidebar,
   SidebarHeader,
@@ -9,10 +9,15 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarFooter,
 } from '@/components/ui/sidebar';
-import { Home, Package, FileText, User, FilePlus } from 'lucide-react';
+import { Home, Package, FileText, User, FilePlus, LogOut } from 'lucide-react';
 import { AppLogo } from './app-logo';
 import type { Locale } from '@/i18n-config';
+import { user } from '@/lib/placeholder-data';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Separator } from '../ui/separator';
+import { Button } from '../ui/button';
 
 type AppSidebarProps = {
   lang: Locale;
@@ -20,6 +25,7 @@ type AppSidebarProps = {
 };
 
 export default function AppSidebar({ lang, dictionary }: AppSidebarProps) {
+  const router = useRouter();
   const pathname = usePathname();
   const isActive = (path: string) => pathname === `/${lang}${path}`;
 
@@ -31,11 +37,31 @@ export default function AppSidebar({ lang, dictionary }: AppSidebarProps) {
     { href: '/profile', icon: User, label: dictionary.nav.profile },
   ];
 
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('');
+  };
+
+  const handleLogout = () => {
+    router.push(`/${lang}/login`);
+  };
+
   return (
     <Sidebar collapsible="icon" side={lang === 'ar' ? 'right' : 'left'}>
-      <SidebarHeader>
+      <SidebarHeader className="text-center">
         <AppLogo />
+        <div className="mt-4 group-data-[collapsible=icon]:hidden">
+           <Avatar className="h-20 w-20 mx-auto">
+             <AvatarImage src={user.avatar} alt={`@${user.name}`} />
+             <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+           </Avatar>
+           <h3 className="font-semibold mt-2">{user.name}</h3>
+           <p className="text-xs text-muted-foreground">{user.email}</p>
+        </div>
       </SidebarHeader>
+      <Separator />
       <SidebarContent>
         <SidebarMenu>
           {navItems.map((item) => (
@@ -46,7 +72,7 @@ export default function AppSidebar({ lang, dictionary }: AppSidebarProps) {
                   icon={<item.icon />}
                   tooltip={{
                     children: item.label,
-                    side: lang === 'ar' ? 'left' : 'right'
+                    side: lang === 'ar' ? 'left' : 'right',
                   }}
                 >
                   <span>{item.label}</span>
@@ -56,6 +82,13 @@ export default function AppSidebar({ lang, dictionary }: AppSidebarProps) {
           ))}
         </SidebarMenu>
       </SidebarContent>
+      <Separator />
+      <SidebarFooter>
+        <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
+          <LogOut className="mr-2 h-4 w-4" />
+          <span className="group-data-[collapsible=icon]:hidden">{dictionary.nav.logout}</span>
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   );
 }

@@ -18,7 +18,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { user } from '@/lib/placeholder-data';
 import type { Locale } from '@/i18n-config';
-import { LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 type UserNavProps = {
@@ -56,6 +55,7 @@ export function UserNav({ lang, dictionary }: UserNavProps) {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user.name}</p>
+
             <p className="text-xs leading-none text-muted-foreground">
               {user.email}
             </p>
@@ -67,11 +67,6 @@ export function UserNav({ lang, dictionary }: UserNavProps) {
             <DropdownMenuItem>{dictionary.nav.profile}</DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout}>
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>{dictionary.nav.logout}</span>
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
