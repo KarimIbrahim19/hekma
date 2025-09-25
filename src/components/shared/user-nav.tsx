@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import {
   Avatar,
@@ -16,6 +18,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { user } from '@/lib/placeholder-data';
 import type { Locale } from '@/i18n-config';
+import { LogOut } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 type UserNavProps = {
   lang: Locale;
@@ -23,11 +27,19 @@ type UserNavProps = {
 };
 
 export function UserNav({ lang, dictionary }: UserNavProps) {
+  const router = useRouter();
+
   const getInitials = (name: string) => {
     return name
       .split(' ')
       .map((n) => n[0])
       .join('');
+  };
+
+  const handleLogout = () => {
+    // Here you would typically clear the user's session
+    // For now, we'll just redirect to the login page
+    router.push(`/${lang}/login`);
   };
 
   return (
@@ -56,9 +68,10 @@ export function UserNav({ lang, dictionary }: UserNavProps) {
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <Link href={`/${lang}/login`} passHref>
-          <DropdownMenuItem>{dictionary.nav.logout}</DropdownMenuItem>
-        </Link>
+        <DropdownMenuItem onClick={handleLogout}>
+          <LogOut className="mr-2 h-4 w-4" />
+          <span>{dictionary.nav.logout}</span>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
