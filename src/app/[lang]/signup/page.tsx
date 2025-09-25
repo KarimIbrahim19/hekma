@@ -119,7 +119,7 @@ export default function SignupPage({
                   </Link>
               </div>
           </div>
-          <div className='text-center'>
+          <div className='rtl:text-right'>
             <CardTitle className="text-2xl font-bold">{dictionary.createAccount}</CardTitle>
             <CardDescription>{dictionary.createAccountPrompt}</CardDescription>
           </div>
@@ -185,7 +185,7 @@ export default function SignupPage({
               </Button>
             </div>
           </form>
-          <div className="mt-4 text-center text-sm">
+          <div className="mt-4 text-sm rtl:text-right">
             {dictionary.haveAccount}{' '}
             <Link href={`/${lang}/login`} className="underline">
               {dictionary.login}

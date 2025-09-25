@@ -106,7 +106,7 @@ export default function LoginPage() {
                   </Link>
               </div>
           </div>
-          <div className='text-center'>
+          <div className='rtl:text-right'>
             <CardTitle className="text-2xl font-bold">{dictionary.welcomeBack}</CardTitle>
             <CardDescription>{dictionary.loginPrompt}</CardDescription>
           </div>
@@ -163,7 +163,7 @@ export default function LoginPage() {
               </Button>
             </div>
           </form>
-          <div className="mt-4 text-center text-sm">
+          <div className="mt-4 text-sm rtl:text-right">
             {dictionary.dontHaveAccount}{' '}
             <Link href={`/${lang}/signup`} className="underline">
               {dictionary.signup}
